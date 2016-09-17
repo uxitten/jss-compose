@@ -1,7 +1,7 @@
 const consoleWarn = console.warn.bind(console) // eslint-disable-line no-console
 
 /**
- * Set additional unnamed class
+ * Set additional unnamed class.
  *
  * @param {Object} original rule
  * @param {String} compostion class string
@@ -17,7 +17,7 @@ const setClass = (rule, composition) => {
 }
 
 /**
- * Set additional named class
+ * Set additional named class.
  *
  * @param {Object} original rule
  * @param {String} compostion class string
@@ -70,7 +70,7 @@ export default function jssCompose({warn = consoleWarn} = {}) {
         }
       }
     }
-    // Remove composes property before attaching to prevent infinite call stack
+    // Remove composes property before attaching to prevent infinite call stack.
     delete rule.style.composes
   }
 }
