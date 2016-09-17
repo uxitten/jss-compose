@@ -1,4 +1,4 @@
-const warn = console.warn.bind(console) // eslint-disable-line no-console
+const consoleWarn = console.warn.bind(console) // eslint-disable-line no-console
 
 /**
  * Set additional unnamed class
@@ -10,7 +10,6 @@ const warn = console.warn.bind(console) // eslint-disable-line no-console
 const setClass = (rule, composition) => {
   const container = rule.options.parent
 
-  // rule.className += ' ' + composition
   rule.className += ` ${composition}`
   container.classes[rule.name] = rule.className
 
@@ -24,7 +23,7 @@ const setClass = (rule, composition) => {
  * @param {String} compostion class string
  * @return {Boolean} flag, indicating function was successfull or not
  */
-const setNamedClass = (rule, composition) => {
+const setNamedClass = (rule, composition, warn) => {
   const refRule = rule.options.sheet.getRule(composition.substr(1))
 
   if (!refRule) {
@@ -46,15 +45,15 @@ const setNamedClass = (rule, composition) => {
  * @param {Rule} rule
  * @api public
  */
-export default function jssCompose() {
-  return (rule) => {
+export default function jssCompose({warn = consoleWarn} = {}) {
+  return rule => {
     if (!rule.style || !rule.style.composes) return
     if (rule.options.named) {
       const style = rule.style
 
       if (typeof style.composes == 'string') {
         if (style.composes[0] === '$') {
-          setNamedClass(rule, style.composes)
+          setNamedClass(rule, style.composes, warn)
         }
         else {
           setClass(rule, style.composes)
@@ -63,7 +62,7 @@ export default function jssCompose() {
       else if (Array.isArray(style.composes)) {
         for (let index = 0; index < style.composes.length; index++) {
           if (style.composes[index][0] === '$') {
-            setNamedClass(rule, style.composes[index])
+            setNamedClass(rule, style.composes[index], warn)
           }
           else {
             setClass(rule, style.composes[index])
