@@ -3,8 +3,9 @@
 ## JSS plugin that enables selector composition
 
 There are few things that you must consider before use *jss-compose*:
-* Composition doesn't work with [named stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors)
-* Composition works only if the resulting selector is a single class name (don't try to put `composes` property inside nested selector if you use [jss-nested](https://github.com/cssinjs/jss-nested))
+* Composition doesn't work with [named stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors).
+* `composes` property accepts strings or arrays.
+* Composition works only if the resulting selector is a single class name (don't try to put `composes` property inside nested selector if you use [jss-nested](https://github.com/cssinjs/jss-nested)).
 * Composition works only if you compose rule, that is defined **AFTER** rule, where you write `composes` (Otherwise you get wrong css selector order and priority).
 
 Make sure you read [how to use
@@ -144,13 +145,6 @@ It renders to:
 ```html
 <button class="button-123456 active-123456 btn btn-primary">Button</button>
 ```
-
-
-
-
-
-
-
 
 
 ## Issues
