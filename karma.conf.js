@@ -3,8 +3,7 @@ const webpackConfig = require('./webpack.config')
 
 module.exports = (config) => {
   config.set({
-    browsers: ['Firefox'],
-    // browsers: ['Chrome', 'Firefox', 'Safari'],
+    browsers: ['Chrome', 'Firefox', 'Safari'],
     frameworks: ['mocha'],
     files: ['tests-src.webpack.js'],
     preprocessors: {
