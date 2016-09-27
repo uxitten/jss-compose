@@ -116,22 +116,24 @@ It renders to:
 <button class="buttonDisabled-123456 button-123456 active-123456 disabled-123456">Disabled Button with active state</button>
 ```
 
-#### 3. Mixed composition
+### Mix global and local classes.
 
-You can compose both internal named selectors and external global (unnamed) selectors
+You can compose both local and global classes at the same time.
 
 ```javascript
 const sheet = jss.createStyleSheet({
   active: {
     color: 'red'
-  }
+  },
   button: {
-    composes: ['$active', 'btn', 'btn-primary'], // You can use arrays too
+    composes: ['$active', 'btn', 'btn-primary'],
     color: 'blue'
   }
 })
 ```
+
 Compiles to:
+
 ```css
 .active-123456 {
   color: red;
@@ -140,7 +142,9 @@ Compiles to:
   color: blue;
 }
 ```
+
 When you use it:
+
 ```javascript
 <button className={classes.button}>Button</button>
 ```
@@ -154,7 +158,6 @@ It renders to:
 - Composition doesn't work with option `{named: false}` - [global stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors).
 - Does not work inside of [nested rules](https://github.com/cssinjs/jss-nested).
 - When composing local rules, they need to be defined first. Otherwise you get wrong css selector order and specificity.
-
 
 ## Issues
 
