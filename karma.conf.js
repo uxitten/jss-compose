@@ -3,11 +3,11 @@ const webpackConfig = require('./webpack.config')
 
 module.exports = (config) => {
   config.set({
-    browsers: ['Chrome', 'Firefox', 'Safari'],
+    browsers: ['Chrome'],
     frameworks: ['mocha'],
-    files: ['tests-src.webpack.js'],
+    files: ['tests.webpack.js'],
     preprocessors: {
-      'tests-src.webpack.js': ['webpack', 'sourcemap']
+      'tests.webpack.js': ['webpack', 'sourcemap']
     },
     webpack: assign(webpackConfig, {
       devtool: 'inline-source-map'

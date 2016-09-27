@@ -2,7 +2,7 @@
 
 ## JSS plugin for classes composition.
 
-This plugin allows you to use CSS frameworks and legacy code together with JSS.
+This plugin allows you to use CSS frameworks and legacy code together with JSS as well as reuse Rules more granularly.
 
 Make sure you read [how to use
 plugins](https://github.com/cssinjs/jss/blob/master/docs/setup.md#setup-with-plugins)

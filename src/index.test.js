@@ -1,14 +1,23 @@
 import expect from 'expect.js'
-import compose from './index'
 import {create} from 'jss'
+import compose from './index'
 
 const noWarn = message => expect(message).to.be(undefined)
 
 describe('jss-compose', () => {
   let jss
+  let warning
 
   beforeEach(() => {
-    jss = create().use(compose({warn: noWarn}))
+    compose.__Rewire__('warning', (condition, message) => {
+      warning = message
+    })
+    jss = create().use(compose())
+  })
+
+  afterEach(() => {
+    compose.__ResetDependency__('warning')
+    warning = undefined
   })
 
   describe('Unnamed rules', () => {
@@ -24,6 +33,10 @@ describe('jss-compose', () => {
           color: 'red'
         }
       }, {named: false})
+    })
+
+    afterEach(() => {
+      expect(warning).to.be(undefined)
     })
 
     it('should add rules', () => {
@@ -62,6 +75,10 @@ describe('jss-compose', () => {
       })
     })
 
+    afterEach(() => {
+      expect(warning).to.be(undefined)
+    })
+
     it('should add rules', () => {
       expect(sheet.getRule('a')).to.not.be(undefined)
       expect(sheet.getRule('b')).to.not.be(undefined)
@@ -83,7 +100,7 @@ describe('jss-compose', () => {
     })
   })
 
-  describe('Named selector composed with unnamed one', () => {
+  describe('Named selector composed with an unnamed one', () => {
     let sheet
 
     beforeEach(() => {
@@ -93,6 +110,10 @@ describe('jss-compose', () => {
           color: 'red'
         }
       })
+    })
+
+    afterEach(() => {
+      expect(warning).to.be(undefined)
     })
 
     it('should add rule', () => {
@@ -131,6 +152,10 @@ describe('jss-compose', () => {
           border: 'none'
         }
       })
+    })
+
+    afterEach(() => {
+      expect(warning).to.be(undefined)
     })
 
     it('should add rules', () => {
@@ -178,6 +203,10 @@ describe('jss-compose', () => {
       })
     })
 
+    afterEach(() => {
+      expect(warning).to.be(undefined)
+    })
+
     it('should add rules', () => {
       expect(sheet.getRule('a')).to.not.be(undefined)
       expect(sheet.getRule('b')).to.not.be(undefined)
@@ -218,6 +247,10 @@ describe('jss-compose', () => {
       })
     })
 
+    afterEach(() => {
+      expect(warning).to.be(undefined)
+    })
+
     it('should add rules', () => {
       expect(sheet.getRule('a')).to.not.be(undefined)
       expect(sheet.getRule('b')).to.not.be(undefined)
@@ -245,38 +278,24 @@ describe('jss-compose', () => {
   })
 
   describe('Warnings', () => {
-    let localJss
-    let warning
-
-    beforeEach(() => {
-      const warn = message => {
-        warning = message
-      }
-      localJss = create().use(compose({warn}))
-    })
-
-    afterEach(() => {
-      warning = null
-    })
-
     it('should warn when rule try to compose itself', () => {
-      localJss.createStyleSheet({
+      jss.createStyleSheet({
         a: {
           composes: ['$a'],
           color: 'red'
         }
       })
-      expect(warning).to.be('[JSS] A rule tries to compose itself \r\n.a-3512327961 {\n  composes: $a;\n  color: red;\n}') // eslint-disable-line max-len
+      expect(warning).to.be('[JSS] Cyclic composition detected. \r\n%s')
     })
 
     it('should warn when try to compose non-existant named selector', () => {
-      localJss.createStyleSheet({
+      jss.createStyleSheet({
         a: {
           composes: ['$b'],
           color: 'red'
         }
       })
-      expect(warning).to.be('[JSS] A rule tries to compose with non-existant internal selector \r\n.a-1790758707 {\n  composes: $b;\n  color: red;\n}') // eslint-disable-line max-len
+      expect(warning).to.be('[JSS] Referenced rule is not defined. \r\n%s')
     })
   })
 })
