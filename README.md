@@ -1,22 +1,19 @@
 ![JSS logo](https://avatars1.githubusercontent.com/u/9503099?v=3&s=60)
 
-## JSS plugin that enables selector composition
+## JSS plugin for classes composition.
 
-There are few things that you must consider before use *jss-compose*:
-* Composition doesn't work with [named stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors).
-* `composes` property accepts strings or arrays.
-* Composition works only if the resulting selector is a single class name (don't try to put `composes` property inside nested selector if you use [jss-nested](https://github.com/cssinjs/jss-nested)).
-* Composition works only if you compose rule, that is defined **AFTER** rule, where you write `composes` (Otherwise you get wrong css selector order and priority).
+This plugin allows you to use CSS frameworks and legacy code together with JSS.
 
 Make sure you read [how to use
 plugins](https://github.com/cssinjs/jss/blob/master/docs/setup.md#setup-with-plugins)
 in general.
 
-## Usage example
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/cssinjs/lobby)
 
-#### 1. Composition with unnamed (global) selector
 
-It's usefull if you want to combine jss with style frameworks such [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) or any other.
+### Compose with global classes.
+
+It is usefull if you want to combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) and others.
 
 ```javascript
 const sheet = jss.createStyleSheet({
@@ -31,6 +28,7 @@ const sheet = jss.createStyleSheet({
 })
 ```
 Compiles to:
+
 ```css
 .button-123456 {
   color: red;
@@ -40,9 +38,10 @@ Compiles to:
 }
 ```
 When you use it:
+
 ```javascript
-<button className={sheet.classes.button}>Button</button>
-<button className={sheet.classes.buttonActive}>Active Button</button>
+<button className={classes.button}>Button</button>
+<button className={classes.buttonActive}>Active Button</button>
 ```
 It renders to:
 ```html
@@ -50,10 +49,10 @@ It renders to:
 <button class="button-123456 btn btn-primary">Active Button</button>
 ```
 
-#### 2. Composition with named selector
+### Compose with local classes.
 
-This approach is usefull if you want manage elements states without additinal styles duplication (e.g. button with active, disabled states).
-To use it - simple add `$` symbol before rule, that you want to compose.
+This approach is useful if you want manage element states without additinal rules duplication.
+To reference a local rule, use `$` symbol before the name.
 
 ```javascript
 const sheet = jss.createStyleSheet({
@@ -83,7 +82,9 @@ const sheet = jss.createStyleSheet({
   }
 })
 ```
+
 Compiles to:
+
 ```css
 .button-123456 {
   color: black;
@@ -100,12 +101,14 @@ Compiles to:
 .active-123456 {
   color: red;
 }
-/* .buttonDisabled is not printed here, because it have only compositon and no styles inside */
+/* Rule `buttonDisabled` is not compiled to CSS, because it has no own properties. */
 ```
+
 When you use it:
+
 ```javascript
-<button className={sheet.classes.buttonActiveDisabled}>Active Disabled Button</button>
-<button className={sheet.classes.buttonDisabled}>Disabled Button with active state</button>
+<button className={classes.buttonActiveDisabled}>Active Disabled Button</button>
+<button className={classes.buttonDisabled}>Disabled Button with active state</button>
 ```
 It renders to:
 ```html
@@ -139,12 +142,18 @@ Compiles to:
 ```
 When you use it:
 ```javascript
-<button className={sheet.classes.button}>Button</button>
+<button className={classes.button}>Button</button>
 ```
 It renders to:
 ```html
 <button class="button-123456 active-123456 btn btn-primary">Button</button>
 ```
+
+## Gotchas
+
+- Composition doesn't work with option `{named: false}` - [global stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors).
+- Does not work inside of [nested rules](https://github.com/cssinjs/jss-nested).
+- When composing local rules, they need to be defined first. Otherwise you get wrong css selector order and specificity.
 
 
 ## Issues
@@ -155,7 +164,7 @@ File a bug against [cssinjs/jss prefixed with \[jss-compose\]](https://github.co
 
 ```bash
 npm i
-npm run test
+npm test
 ```
 
 ## License
