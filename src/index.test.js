@@ -1,8 +1,8 @@
+/* eslint-disable no-underscore-dangle */
+
 import expect from 'expect.js'
 import {create} from 'jss'
 import compose from './index'
-
-const noWarn = message => expect(message).to.be(undefined)
 
 describe('jss-compose', () => {
   let jss
