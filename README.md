@@ -13,7 +13,7 @@ in general.
 
 ### Compose with global classes.
 
-It is usefull if you want to combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) and others.
+To combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) and others.
 
 ```javascript
 const sheet = jss.createStyleSheet({
@@ -51,8 +51,8 @@ It renders to:
 
 ### Compose with local classes.
 
-This approach is useful if you want manage element states without additinal rules duplication.
-To reference a local rule, use `$` symbol before the name.
+Manage element states without rules duplication.
+To reference a local rule, prefix the rule name with `$` symbol.
 
 ```javascript
 const sheet = jss.createStyleSheet({
