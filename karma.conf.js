@@ -1,4 +1,3 @@
-const assign = require('lodash.assign')
 const webpackConfig = require('./webpack.config')
 
 module.exports = (config) => {
@@ -9,7 +8,7 @@ module.exports = (config) => {
     preprocessors: {
       'tests.webpack.js': ['webpack', 'sourcemap']
     },
-    webpack: assign(webpackConfig, {
+    webpack: Object.assign(webpackConfig, {
       devtool: 'inline-source-map'
     }),
     webpackServer: {
