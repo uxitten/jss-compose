@@ -2,7 +2,7 @@
 
 import expect from 'expect.js'
 import {create} from 'jss'
-import compose from './index'
+import compose from './'
 
 describe('jss-compose', () => {
   let jss
