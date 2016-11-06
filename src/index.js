@@ -41,14 +41,12 @@ export default function jssCompose() {
 
     if (!style || !style.composes) return
 
-    if (rule.options.named) {
-      if (Array.isArray(style.composes)) {
-        for (let index = 0; index < style.composes.length; index++) {
-          setClass(rule, style.composes[index])
-        }
+    if (Array.isArray(style.composes)) {
+      for (let index = 0; index < style.composes.length; index++) {
+        setClass(rule, style.composes[index])
       }
-      else setClass(rule, style.composes)
     }
+    else setClass(rule, style.composes)
 
     // Remove composes property to prevent infinite loop.
     delete style.composes

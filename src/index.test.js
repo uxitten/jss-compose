@@ -20,47 +20,7 @@ describe('jss-compose', () => {
     warning = undefined
   })
 
-  describe('Unnamed rules', () => {
-    let sheet
-
-    beforeEach(() => {
-      sheet = jss.createStyleSheet({
-        a: {
-          float: 'left'
-        },
-        b: {
-          composes: 'a',
-          color: 'red'
-        }
-      }, {named: false})
-    })
-
-    afterEach(() => {
-      expect(warning).to.be(undefined)
-    })
-
-    it('should add rules', () => {
-      expect(sheet.getRule('a')).to.not.be(undefined)
-      expect(sheet.getRule('b')).to.not.be(undefined)
-    })
-
-    it('shouldn\'nt compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('')
-    })
-
-    it('should generate correct CSS', () => {
-      expect(sheet.toString()).to.be(
-        'a {\n' +
-        '  float: left;\n' +
-        '}\n' +
-        'b {\n' +
-        '  color: red;\n' +
-        '}'
-      )
-    })
-  })
-
-  describe('Named composition', () => {
+  describe('Ref composition', () => {
     let sheet
 
     beforeEach(() => {
@@ -100,7 +60,7 @@ describe('jss-compose', () => {
     })
   })
 
-  describe('Named selector composed with an unnamed one', () => {
+  describe('Global class composition', () => {
     let sheet
 
     beforeEach(() => {
@@ -133,7 +93,7 @@ describe('jss-compose', () => {
     })
   })
 
-  describe('Array of named classes composition', () => {
+  describe('Array of refs composition', () => {
     let sheet
 
     beforeEach(() => {
@@ -188,7 +148,7 @@ describe('jss-compose', () => {
     })
   })
 
-  describe('Mixed composition (named and unnamed classes)', () => {
+  describe('Mixed composition', () => {
     let sheet
 
     beforeEach(() => {
@@ -288,7 +248,7 @@ describe('jss-compose', () => {
       expect(warning).to.be('[JSS] Cyclic composition detected. \r\n%s')
     })
 
-    it('should warn when try to compose non-existant named selector', () => {
+    it('should warn when try to compose ref which can\'t be resolved', () => {
       jss.createStyleSheet({
         a: {
           composes: ['$b'],
