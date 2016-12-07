@@ -1,6 +1,4 @@
-![JSS logo](https://avatars1.githubusercontent.com/u/9503099?v=3&s=60)
-
-## JSS plugin for classes composition.
+# JSS plugin for classes composition.
 
 This plugin allows you to use CSS frameworks and legacy code together with JSS as well as reuse Rules more granularly.
 
