@@ -1,4 +1,4 @@
-# JSS plugin for classes composition.
+# JSS plugin for classes composition
 
 This plugin allows you to use CSS frameworks and legacy code together with JSS as well as reuse Rules more granularly.
 
