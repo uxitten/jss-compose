@@ -1,3 +1,7 @@
+## 2.0.0 / 2016-12-09
+
+- remove named option handling
+
 ## 1.1.0 / 2016-09-30
 
 - refactoring
