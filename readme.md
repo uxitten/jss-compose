@@ -8,22 +8,22 @@ in general.
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/cssinjs/lobby)
 
-
 ### Compose with global classes.
 
 To combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) and others.
 
 ```javascript
-const sheet = jss.createStyleSheet({
+const styles = {
   button: {
     composes: 'btn',
     color: 'red'
   }
   buttonActive: {
-    composes: ['btn', 'btn-primary'], // You can use arrays too
+    // Using an array!
+    composes: ['btn', 'btn-primary'],
     color: 'blue'
   }
-})
+}
 ```
 Compiles to:
 
@@ -35,6 +35,7 @@ Compiles to:
   color: blue;
 }
 ```
+
 When you use it:
 
 ```javascript
@@ -53,7 +54,7 @@ Manage element states without rules duplication.
 To reference a local rule, prefix the rule name with `$` symbol.
 
 ```javascript
-const sheet = jss.createStyleSheet({
+const styles = {
   button: {
     color: 'black'
   },
@@ -78,7 +79,7 @@ const sheet = jss.createStyleSheet({
   buttonDisabled: {
     composes: ['$button', '$active', '$disabled']
   }
-})
+}
 ```
 
 Compiles to:
@@ -119,7 +120,7 @@ It renders to:
 You can compose both local and global classes at the same time.
 
 ```javascript
-const sheet = jss.createStyleSheet({
+const styles = {
   active: {
     color: 'red'
   },
@@ -127,7 +128,7 @@ const sheet = jss.createStyleSheet({
     composes: ['$active', 'btn', 'btn-primary'],
     color: 'blue'
   }
-})
+}
 ```
 
 Compiles to:
@@ -151,9 +152,9 @@ It renders to:
 <button class="button-123456 active-123456 btn btn-primary">Button</button>
 ```
 
-## Gotchas
+## Caveats
 
-- Composition doesn't work with option `{named: false}` - [global stylesheets](https://github.com/cssinjs/jss/blob/master/docs/json-api.md#writing-global-selectors).
+- Doesn't work within [global Style Sheets](https://github.com/cssinjs/jss-global).
 - Does not work inside of [nested rules](https://github.com/cssinjs/jss-nested).
 - When composing local rules, they need to be defined first. Otherwise you get wrong css selector order and specificity.
 
