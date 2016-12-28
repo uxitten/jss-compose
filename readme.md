@@ -8,7 +8,7 @@ in general.
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/cssinjs/lobby)
 
-### Compose with global classes.
+## Compose with global classes.
 
 To combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/) or [Bootstrap](http://getbootstrap.com/) and others.
 
@@ -48,7 +48,7 @@ It renders to:
 <button class="button-123456 btn btn-primary">Active Button</button>
 ```
 
-### Compose with local classes.
+## Compose with local classes.
 
 Manage element states without rules duplication.
 To reference a local rule, prefix the rule name with `$` symbol.
@@ -115,7 +115,7 @@ It renders to:
 <button class="buttonDisabled-123456 button-123456 active-123456 disabled-123456">Disabled Button with active state</button>
 ```
 
-### Mix global and local classes.
+## Mix global and local classes.
 
 You can compose both local and global classes at the same time.
 
