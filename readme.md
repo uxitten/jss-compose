@@ -6,7 +6,7 @@ Make sure you read [how to use
 plugins](https://github.com/cssinjs/jss/blob/master/docs/setup.md#setup-with-plugins)
 in general.
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/cssinjs/lobby)
+[![Gitter](https://badges.gitter.im/JoinChat.svg)](https://gitter.im/cssinjs/lobby)
 
 ## Compose with global classes.
 
