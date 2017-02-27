@@ -12,7 +12,9 @@ describe('jss-compose', () => {
     compose.__Rewire__('warning', (condition, message) => {
       warning = message
     })
-    jss = create().use(compose())
+    jss = create({
+      generateClassName: (str, rule) => `${rule.name}-id`
+    }).use(compose())
   })
 
   afterEach(() => {
@@ -45,15 +47,15 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-3538039808 a-3787690649')
+      expect(sheet.getRule('b').className).to.be('b-id a-id')
     })
 
     it('should generate correct CSS', () => {
       expect(sheet.toString()).to.be(
-        '.a-3787690649 {\n' +
+        '.a-id {\n' +
         '  float: left;\n' +
         '}\n' +
-        '.b-3538039808 {\n' +
+        '.b-id {\n' +
         '  color: red;\n' +
         '}'
       )
@@ -81,12 +83,12 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('a').className).to.be('a-4193320358 b')
+      expect(sheet.getRule('a').className).to.be('a-id b')
     })
 
     it('should generate correct CSS', () => {
       expect(sheet.toString()).to.be(
-        '.a-4193320358 {\n' +
+        '.a-id {\n' +
         '  color: red;\n' +
         '}'
       )
@@ -127,21 +129,21 @@ describe('jss-compose', () => {
 
     it('should compose classes', () => {
       expect(sheet.getRule('d').className)
-        .to.be('d-452344379 a-3787690649 b-3645560457 c-3525728718')
+        .to.be('d-id a-id b-id c-id')
     })
 
     it('should generate correct CSS', () => {
       expect(sheet.toString()).to.be(
-        '.a-3787690649 {\n' +
+        '.a-id {\n' +
         '  float: left;\n' +
         '}\n' +
-        '.b-3645560457 {\n' +
+        '.b-id {\n' +
         '  color: red;\n' +
         '}\n' +
-        '.c-3525728718 {\n' +
+        '.c-id {\n' +
         '  background: blue;\n' +
         '}\n' +
-        '.d-452344379 {\n' +
+        '.d-id {\n' +
         '  border: none;\n' +
         '}'
       )
@@ -173,15 +175,15 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-3696614589 a-3787690649 c d')
+      expect(sheet.getRule('b').className).to.be('b-id a-id c d')
     })
 
     it('should generate correct CSS', () => {
       expect(sheet.toString()).to.be(
-        '.a-3787690649 {\n' +
+        '.a-id {\n' +
         '  float: left;\n' +
         '}\n' +
-        '.b-3696614589 {\n' +
+        '.b-id {\n' +
         '  color: red;\n' +
         '}'
       )
@@ -218,19 +220,19 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-3337890504 a-3787690649 d')
-      expect(sheet.getRule('c').className).to.be('c-3560954838 b-3337890504 a-3787690649 d')
+      expect(sheet.getRule('b').className).to.be('b-id a-id d')
+      expect(sheet.getRule('c').className).to.be('c-id b-id a-id d')
     })
 
     it('should generate correct CSS', () => {
       expect(sheet.toString()).to.be(
-        '.a-3787690649 {\n' +
+        '.a-id {\n' +
         '  float: left;\n' +
         '}\n' +
-        '.b-3337890504 {\n' +
+        '.b-id {\n' +
         '  color: red;\n' +
         '}\n' +
-        '.c-3560954838 {\n' +
+        '.c-id {\n' +
         '  background: blue;\n' +
         '}'
       )
