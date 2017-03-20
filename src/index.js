@@ -8,6 +8,23 @@ import warning from 'warning'
  * @return {Boolean} flag, indicating function was successfull or not
  */
 function setClass(rule, composition) {
+  /* Skip falsy values */
+  if (!composition) return true
+
+  if (Array.isArray(composition)) {
+    for (let index = 0; index < composition.length; index++) {
+      const isSetted = setClass(rule, composition[index])
+
+      if (!isSetted) return false
+    }
+
+    return true
+  }
+
+  if (composition.includes(' ')) {
+    return setClass(rule, composition.split(' '))
+  }
+
   if (composition[0] === '$') {
     const refRule = rule.options.sheet.getRule(composition.substr(1))
 
@@ -41,12 +58,7 @@ export default function jssCompose() {
 
     if (!style || !style.composes) return
 
-    if (Array.isArray(style.composes)) {
-      for (let index = 0; index < style.composes.length; index++) {
-        setClass(rule, style.composes[index])
-      }
-    }
-    else setClass(rule, style.composes)
+    setClass(rule, style.composes)
 
     // Remove composes property to prevent infinite loop.
     delete style.composes
