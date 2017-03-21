@@ -15,11 +15,12 @@ To combine JSS with CSS framework like [Material Design Lite](https://getmdl.io/
 ```javascript
 const styles = {
   button: {
-    composes: 'btn',
+    // Using space separated class names.
+    composes: 'btn btn-primary',
     color: 'red'
   }
   buttonActive: {
-    // Using an array!
+    // Using an array of class names.
     composes: ['btn', 'btn-primary'],
     color: 'blue'
   }
