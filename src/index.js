@@ -8,7 +8,7 @@ import warning from 'warning'
  * @return {Boolean} flag, indicating function was successfull or not
  */
 function setClass(rule, composition) {
-  /* Skip falsy values */
+  // Skip falsy values
   if (!composition) return true
 
   if (Array.isArray(composition)) {
@@ -21,7 +21,7 @@ function setClass(rule, composition) {
     return true
   }
 
-  if (composition.includes(' ')) {
+  if (composition.indexOf(' ') > -1) {
     return setClass(rule, composition.split(' '))
   }
 
