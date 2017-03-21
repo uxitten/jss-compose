@@ -29,11 +29,11 @@ function setClass(rule, composition) {
     const refRule = rule.options.sheet.getRule(composition.substr(1))
 
     if (!refRule) {
-      warning(false, `[JSS] Referenced rule is not defined. \r\n%s`, rule)
+      warning(false, '[JSS] Referenced rule is not defined. \r\n%s', rule)
       return false
     }
     if (refRule === rule) {
-      warning(false, `[JSS] Cyclic composition detected. \r\n%s`, rule)
+      warning(false, '[JSS] Cyclic composition detected. \r\n%s', rule)
       return false
     }
     setClass(rule, refRule.className)
