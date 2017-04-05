@@ -13,7 +13,7 @@ describe('jss-compose', () => {
       warning = message
     })
     jss = create({
-      generateClassName: (str, rule) => `${rule.name}-id`
+      generateClassName: (rule) => `${rule.name}-id`
     }).use(compose())
   })
 

@@ -14,7 +14,6 @@ function setClass(rule, composition) {
   if (Array.isArray(composition)) {
     for (let index = 0; index < composition.length; index++) {
       const isSetted = setClass(rule, composition[index])
-
       if (!isSetted) return false
     }
 
@@ -53,14 +52,12 @@ function setClass(rule, composition) {
  * @api public
  */
 export default function jssCompose() {
-  return (rule) => {
+  function onProcessRule(rule) {
     const {style} = rule
-
-    if (!style || !style.composes) return
-
+    if (!style.composes) return
     setClass(rule, style.composes)
-
     // Remove composes property to prevent infinite loop.
     delete style.composes
   }
+  return {onProcessRule}
 }
