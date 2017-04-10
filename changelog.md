@@ -1,3 +1,7 @@
+## 3.0.1 / 2017-04-11
+
+- use `onProcessStyle`, fixes an error when rule.style is not defined
+
 ## 3.0.0 / 2017-04-10
 
 - support jss 7.0
