@@ -1,3 +1,7 @@
+## 3.0.0 / 2017-04-10
+
+- support jss 7.0
+
 ## 2.1.0 / 2017-02-27
 
 - support multiple space separated classes

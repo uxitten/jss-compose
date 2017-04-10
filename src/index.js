@@ -52,7 +52,7 @@ function setClass(rule, composition) {
  * @api public
  */
 export default function jssCompose() {
-  function onProcessRule(rule) {
+  function onProcessRule(rule) {
     const {style} = rule
     if (!style.composes) return
     setClass(rule, style.composes)
