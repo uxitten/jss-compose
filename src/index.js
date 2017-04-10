@@ -54,7 +54,7 @@ function setClass(rule, composition) {
 export default function jssCompose() {
   function onProcessRule(rule) {
     const {style} = rule
-    if (!style.composes) return
+    if (!style || !style.composes) return
     setClass(rule, style.composes)
     // Remove composes property to prevent infinite loop.
     delete style.composes
