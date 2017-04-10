@@ -1,7 +1,7 @@
 {
   "name": "jss-compose",
   "description": "JSS plugin for classes composition",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": {
     "name": "Pavel Davydov",
     "email": "typical000@gmail.com"
