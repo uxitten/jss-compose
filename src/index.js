@@ -1,47 +1,54 @@
 import warning from 'warning'
 
 /**
- * Set class name.
+ * Set selector.
  *
  * @param {Object} original rule
- * @param {String} compostion class string
+ * @param {String} className class string
  * @return {Boolean} flag, indicating function was successfull or not
  */
-function setClass(rule, composition) {
+function registerClass(rule, className) {
   // Skip falsy values
-  if (!composition) return true
+  if (!className) return true
 
-  if (Array.isArray(composition)) {
-    for (let index = 0; index < composition.length; index++) {
-      const isSetted = setClass(rule, composition[index])
+  // Support array of class names `{composes: ['foo', 'bar']}`
+  if (Array.isArray(className)) {
+    for (let index = 0; index < className.length; index++) {
+      const isSetted = registerClass(rule, className[index])
       if (!isSetted) return false
     }
 
     return true
   }
 
-  if (composition.indexOf(' ') > -1) {
-    return setClass(rule, composition.split(' '))
+  // Support space separated class names `{composes: 'foo bar'}`
+  if (className.indexOf(' ') > -1) {
+    return registerClass(rule, className.split(' '))
   }
 
-  if (composition[0] === '$') {
-    const refRule = rule.options.sheet.getRule(composition.substr(1))
+  const {parent} = rule.options
+
+  // It is a ref to a local rule.
+  if (className[0] === '$') {
+    const refRule = parent.getRule(className.substr(1))
 
     if (!refRule) {
       warning(false, '[JSS] Referenced rule is not defined. \r\n%s', rule)
       return false
     }
+
     if (refRule === rule) {
       warning(false, '[JSS] Cyclic composition detected. \r\n%s', rule)
       return false
     }
-    setClass(rule, refRule.className)
+
+    parent.classes[rule.key] += ` ${parent.classes[refRule.key]}`
+
     return true
   }
 
-  const container = rule.options.parent
-  rule.className += ` ${composition}`
-  container.classes[rule.name] = rule.className
+  rule.options.parent.classes[rule.key] += ` ${className}`
+
   return true
 }
 
@@ -54,7 +61,7 @@ function setClass(rule, composition) {
 export default function jssCompose() {
   function onProcessStyle(style, rule) {
     if (!style.composes) return style
-    setClass(rule, style.composes)
+    registerClass(rule, style.composes)
     // Remove composes property to prevent infinite loop.
     delete style.composes
     return style

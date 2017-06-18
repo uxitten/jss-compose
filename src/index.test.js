@@ -13,7 +13,7 @@ describe('jss-compose', () => {
       warning = message
     })
     jss = create({
-      generateClassName: rule => `${rule.name}-id`
+      createGenerateClassName: () => rule => `${rule.key}-id`
     }).use(compose())
   })
 
@@ -47,7 +47,7 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-id a-id')
+      expect(sheet.classes.b).to.be('b-id a-id')
     })
 
     it('should generate correct CSS', () => {
@@ -78,12 +78,8 @@ describe('jss-compose', () => {
       expect(warning).to.be(undefined)
     })
 
-    it('should add rule', () => {
-      expect(sheet.getRule('a')).to.not.be(undefined)
-    })
-
     it('should compose classes', () => {
-      expect(sheet.getRule('a').className).to.be('a-id b')
+      expect(sheet.classes.a).to.be('a-id b')
     })
 
     it('should generate correct CSS', () => {
@@ -138,12 +134,9 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('d').className)
-        .to.be('d-id a-id b-id c-id')
-      expect(sheet.getRule('e').className)
-        .to.be('e-id a-id b-id c-id')
-      expect(sheet.getRule('f').className)
-        .to.be('f-id a-id b-id c-id')
+      expect(sheet.classes.d).to.be('d-id a-id b-id c-id')
+      expect(sheet.classes.e).to.be('e-id a-id b-id c-id')
+      expect(sheet.classes.f).to.be('f-id a-id b-id c-id')
     })
 
     it('should generate correct CSS', () => {
@@ -200,8 +193,8 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-id a-id c d')
-      expect(sheet.getRule('e').className).to.be('e-id a-id c d')
+      expect(sheet.classes.b).to.be('b-id a-id c d')
+      expect(sheet.classes.e).to.be('e-id a-id c d')
     })
 
     it('should generate correct CSS', () => {
@@ -249,8 +242,8 @@ describe('jss-compose', () => {
     })
 
     it('should compose classes', () => {
-      expect(sheet.getRule('b').className).to.be('b-id a-id d')
-      expect(sheet.getRule('c').className).to.be('c-id b-id a-id d')
+      expect(sheet.classes.b).to.be('b-id a-id d')
+      expect(sheet.classes.c).to.be('c-id b-id a-id d')
     })
 
     it('should generate correct CSS', () => {
