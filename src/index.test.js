@@ -14,7 +14,7 @@ describe('jss-compose', () => {
     })
     jss = create({
       createGenerateClassName: () => rule => `${rule.key}-id`
-    }).use(compose())
+    }).use(compose({ env: 'test' }))
   })
 
   afterEach(() => {

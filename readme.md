@@ -153,6 +153,13 @@ It renders to:
 <button class="button-123456 active-123456 btn btn-primary">Button</button>
 ```
 
+## You can compile to just in specific environment too
+ex:
+```js
+compose({ env: 'development' })
+```
+default is all environment
+
 ## Caveats
 
 - Doesn't work within [global Style Sheets](https://github.com/cssinjs/jss-global).

@@ -58,10 +58,11 @@ function registerClass(rule, className) {
  * @param {Rule} rule
  * @api public
  */
-export default function jssCompose() {
+export default function jssCompose(options = {}) {
   function onProcessStyle(style, rule) {
     if (!style.composes) return style
-    registerClass(rule, style.composes)
+    if (!options.env || options.env && options.env === process.env.NODE_ENV)
+      registerClass(rule, style.composes)
     // Remove composes property to prevent infinite loop.
     delete style.composes
     return style
